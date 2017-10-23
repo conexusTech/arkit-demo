@@ -9,12 +9,12 @@ public class ManManager : MonoBehaviour {
 
     private Dictionary<string, OneManManager> peoples = new Dictionary<string, OneManManager>(); 
 
-    private void OnEnable()
+    private void Awake()
     {
         FireDB.OnManData += WhenManData;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         FireDB.OnManData += WhenManData;
     }
@@ -23,23 +23,20 @@ public class ManManager : MonoBehaviour {
     {
         if (peoples.ContainsKey(keyname))
         {
-            peoples[keyname].oneMan.startPosition = dbmandata.start_position.GetVector3();
-            peoples[keyname].oneMan.targetPosition = dbmandata.target_position.GetVector3(); 
+            peoples[keyname].oneMan.UpdateData(rootHolder, dbmandata.start_position.GetVector3(), dbmandata.target_position.GetVector3()); 
         }
         else
         {
             Vector3 spawnPoint = dbmandata.start_position.GetVector3();
-            //spawnPoint = rootHolder.InverseTransformVector(spawnPoint);
+            spawnPoint = rootHolder.TransformPoint(spawnPoint);
             GameObject go = Instantiate(manPrefab, spawnPoint, Quaternion.identity) as GameObject;
             go.name = keyname;
-            go.transform.parent = transform;
+            go.transform.parent = rootHolder;
             OneMan oneMan = go.GetComponent<OneMan>();
             OneManManager onemanmanager = new OneManManager();
             onemanmanager.gameObject = go;
             onemanmanager.oneMan = oneMan;
-            oneMan.startPosition = dbmandata.start_position.GetVector3();
-            oneMan.targetPosition = dbmandata.target_position.GetVector3();
-            oneMan.rootHolder = rootHolder;
+            oneMan.UpdateData(rootHolder, dbmandata.start_position.GetVector3(), dbmandata.target_position.GetVector3());
             peoples.Add(keyname, onemanmanager);
         }
     }

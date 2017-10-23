@@ -40,7 +40,7 @@ public class MyPlanePlacement : MonoBehaviour
 				if (holder.activeSelf && rotateToCamera)
 				{
 					Quaternion roomRotation = Camera.main.transform.rotation;
-					holder.transform.rotation = Quaternion.Euler(new Vector3(0f, roomRotation.eulerAngles.y + 180f, 0f));
+					holder.transform.rotation = Quaternion.Euler(new Vector3(0f, roomRotation.eulerAngles.y, 0f));
 				}
 
 				return true;
@@ -76,8 +76,8 @@ public class MyPlanePlacement : MonoBehaviour
                 {
                     hitTestPosition = new ARPoint
                     {
-                        x = screenPosition.x,
-                        y = screenPosition.y,
+                        x = 0.5f, //screenPosition.x,
+                        y = 0.5f //screenPosition.y,
                     };
                 }
             }
