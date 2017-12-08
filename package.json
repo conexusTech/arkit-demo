@@ -1,0 +1,28 @@
+{
+  "name": "polymer-starter-kit",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-google": "^0.7.0",
+    "eslint-plugin-html": "^2.0.0"
+  },
+  "scripts": {
+    "start": "node ./bin/www",
+    "build": "node tools/makem.js; echo Built at `date`",
+    "lint": "npm run lint:javascript && polymer lint",
+    "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
+    "test": "polymer test",
+    "test:integration": "polymer build # test that psk builds without error with the CLI"
+  },
+  "description": "[![Build Status](https://travis-ci.org/PolymerElements/polymer-starter-kit.svg?branch=master)](https://travis-ci.org/PolymerElements/polymer-starter-kit)",
+  "version": "1.0.0",
+  "main": "service-worker.js",
+  "directories": {
+    "test": "test"
+  },
+  "author": "",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-to-https": "^1.0.3"
+  }
+}

@@ -1,0 +1,57 @@
+
+// locked down to app only
+{
+  "Id": "Policy1509632567533",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1509632376947",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::got-microsite-assets/*",
+      "Condition": {
+        "StringLike": {
+          "aws:Referer": [
+            "https://www.fanexperience.co/*",
+            "https://fanexperience.co/*",
+            "https://dev.fanexperience.co/*"
+          ]
+        }
+      },
+      "Principal": "*"
+    },
+    {
+      "Sid": "Stmt1509632502037",
+      "Action": "s3:*",
+      "Effect": "Deny",
+      "Resource": "arn:aws:s3:::got-microsite-assets/*",
+      "Condition": {
+        "StringNotLike": {
+          "aws:Referer": [
+            "https://www.fanexperience.co/*",
+            "https://fanexperience.co/*",
+            "https://dev.fanexperience.co/*"
+          ]
+        }
+      },
+      "Principal": "*"
+    }
+  ]
+}
+
+// open to public
+{
+    "Version": "2012-10-17",
+    "Id": "Policy1510061980226",
+    "Statement": [
+        {
+            "Sid": "Stmt1510061973140",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::got-microsite-assets/*"
+        }
+    ]
+}
